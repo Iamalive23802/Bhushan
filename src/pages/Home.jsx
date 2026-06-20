@@ -187,8 +187,8 @@ export function Home() {
         <div className="mx-auto grid max-w-[1280px] grid-cols-2 gap-10 px-6 text-center md:grid-cols-4 lg:px-8">
           {[
             ['10+', 'Care Services'],
-            ['17+', 'Sale Items'],
-            ['17+', 'Rent Items'],
+            ['18+', 'Sale Items'],
+            ['21+', 'Rent Items'],
             ['24/7', 'Phone Booking'],
           ].map(([n, l]) => (
             <div key={l}>

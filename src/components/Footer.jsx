@@ -60,6 +60,17 @@ export function Footer() {
         <p className="font-sans text-sm text-slate-500 dark:text-slate-400">
           © {new Date().getFullYear()} {BRAND.name}. All rights reserved.
         </p>
+        <p className="mt-2 font-sans text-xs text-slate-400 dark:text-slate-500">
+          Designed and managed by{' '}
+          <a
+            href="https://anyscreen.in"
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium text-sky-600 hover:underline dark:text-sky-400"
+          >
+            anyscreen.in
+          </a>
+        </p>
       </div>
     </footer>
   )

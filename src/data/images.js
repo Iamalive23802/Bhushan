@@ -1,64 +1,68 @@
 /**
- * Free stock photos (Pexels — pexels.com/license) keyed by catalog slug.
- * Each URL is verified to load; images match the product/service type.
+ * Catalog images keyed by slug. Most are locally stored product photos, with
+ * the Pexels helper kept as a safe fallback for any future unmatched items.
  */
 const pexels = (id) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop`
 
-const unsplash = (id) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&h=600&q=80`
+const local = (file) => `/catalog/${file}`
 
 /** @type {Record<string, string>} */
 export const PRODUCT_IMAGES = {
   // —— Home & hospital care ——
-  'nursing-staff': pexels(5215024), // nurse with patient
-  'icu-setup-at-home': pexels(8460232), // hospital bed in clinical room
-  'elder-care-services': pexels(16364306), // senior in wheelchair, care setting
-  'baby-care-services': pexels(3875083), // newborn baby
-  'caretaker-staff': pexels(7682965), // caregiver with elderly person
-  'physiotherapy': pexels(9075500), // physiotherapy / rehab exercise
-  'medical-equipment-on-rent': pexels(356040), // medical devices on table
-  'suction-wheelchair': pexels(8460122), // hospital room / clinical equipment
-  'bipap-ventilator': pexels(6627533), // CPAP/BiPAP mask & sleep therapy
-  'surgical-items': pexels(4483323), // medical gloves / clinical supplies
+  'nursing-staff': local('nursing-staff.png'),
+  'icu-setup-at-home': local('icu-setup-equipment.png'),
+  'elder-care-services': local('elder-care.png'),
+  'baby-care-services': local('baby-care.png'),
+  'caretaker-staff': local('caretaker-staff.png'),
+  'physiotherapy': local('physiotherapy-rehab.png'),
+  'medical-equipment-on-rent': local('medical-equipment-categories.png'),
+  'suction-wheelchair': local('suction-machine-blue.png'),
+  'bipap-ventilator': local('ventilator-machine.png'),
+  'surgical-items': local('surgical-instruments.png'),
 
   // —— Sale ——
-  'walker-sale': pexels(5390270), // elderly person using walker
-  'wheelchair-sale': pexels(3057504), // person in wheelchair
-  'bp-machine-sale': pexels(1181395), // blood pressure cuff on arm
-  'medtech-bp-sale': pexels(3845625), // doctor taking blood pressure
-  'nebulizer-sale': pexels(5849574), // asthma inhaler / respiratory care
-  'pulse-oximeter-sale': pexels(6612521), // fingertip health check / vitals
-  'gloves-sale': pexels(4483323), // disposable medical gloves
-  'diaper-sticker-sale': pexels(7723748), // baby / incontinence care products
-  'diaper-pant-sale': pexels(4031777), // personal care supplies
-  'tynor-product-sale': pexels(3714533), // knee brace / orthopedic support
-  'commode-chair-sale': pexels(6194189), // accessible bathroom / toilet aid
-  'commode-stool-sale': pexels(6194189), // accessible bathroom
-  'white-commode-stool-sale': pexels(6611691), // white bathroom fixture
-  'bed-backrest-sale': pexels(263402), // hospital bed
-  'baby-wipes-sale': pexels(3875083), // baby care
-  'towel-wipes-sale': pexels(5998514), // clean towels / bathing
-  'wheel-walker-sale': pexels(5390270), // walker mobility aid
+  'walker-sale': local('walker.png'),
+  'wheelchair-sale': local('wheelchair-front.png'),
+  'bp-machine-sale': local('bp-machine.png'),
+  'medtech-bp-sale': local('medtech-bp.png'),
+  'nebulizer-sale': local('nebulizer.png'),
+  'pulse-oximeter-sale': local('pulse-oximeter.png'),
+  'gloves-sale': local('latex-gloves.png'),
+  'diaper-sticker-sale': local('diaper-sticker.png'),
+  'diaper-pant-sale': local('diaper-pant.png'),
+  'tynor-product-sale': local('tynor-supports.png'),
+  'commode-chair-sale': local('commode-chair.png'),
+  'commode-stool-sale': local('commode-stool-pink.png'),
+  'white-commode-stool-sale': local('white-commode-stool.png'),
+  'bed-backrest-sale': local('bed-backrest.png'),
+  'baby-wipes-sale': local('baby-wipes.png'),
+  'towel-wipes-sale': local('clean-towels.png'),
+  'wheel-walker-sale': local('wheel-walker.png'),
+  'surgical-instruments-sale': local('surgical-instruments.png'),
 
   // —— Rent ——
-  'o2-machine-rent': unsplash('photo-1631815588090-d4bfec5b1ccb'), // oxygen concentrator
-  'bipap-machine-rent': pexels(6627533), // BiPAP / sleep apnea mask
-  'cpap-machine-rent': pexels(6627533), // CPAP mask & apparatus
-  'suction-machine-rent': pexels(4386464), // hospital treatment / clinical care
-  'walker-rent': pexels(5390270),
-  'wheelchair-rent': pexels(7698026),
-  'o2-cylinder': pexels(3822812), // gas / oxygen cylinder
-  'bed-manual-rent': pexels(263402), // manual hospital bed
-  'motorized-bed-rent': pexels(8460232), // electric hospital bed room
-  'wheel-walker-rent': pexels(5390270),
-  'sleep-study-rent': pexels(5723884), // sleep monitoring at home
-  'holter-test-rent': pexels(3845455), // medical heart monitor on desk
-  'abpm-test-rent': pexels(7659579), // blood pressure monitoring
-  'monitor-rent': pexels(4031818), // hospital patient monitor screens
-  'infusion-pump-rent': pexels(4386464), // IV / hospital care
-  'syringe-pump-rent': pexels(4031818), // clinical monitor / ICU equipment
-  'dvt-pump-rent': pexels(5471031), // leg compression / circulation therapy
+  'o2-machine-rent': local('oxygen-concentrator.png'),
+  'bipap-machine-rent': local('cpap-bipap-kit.png'),
+  'cpap-machine-rent': local('cpap-machine.png'),
+  'suction-machine-rent': local('suction-machine.png'),
+  'walker-rent': local('walker-rent.png'),
+  'wheelchair-rent': local('wheelchair-side.png'),
+  'o2-cylinder': local('oxygen-cylinder.png'),
+  'bed-manual-rent': local('examination-table.png'),
+  'motorized-bed-rent': local('icu-setup-equipment.png'),
+  'wheel-walker-rent': local('wheel-walker.png'),
+  'sleep-study-rent': local('sleep-study-kit.png'),
+  'holter-test-rent': local('holter-test.png'),
+  'abpm-test-rent': local('abpm-device.png'),
+  'monitor-rent': local('medical-equipment-categories.png'),
+  'infusion-pump-rent': local('infusion-pump.png'),
+  'syringe-pump-rent': local('syringe-pump.png'),
+  'dvt-pump-rent': local('dvt-pump.png'),
+  'ventilator-rent': local('ventilator-machine.png'),
+  'defibrillator-rent': local('defibrillator.png'),
+  'examination-table-rent': local('examination-table.png'),
+  'stretcher-rent': local('stretcher.png'),
 }
 
 export function imageForSlug(slug) {
