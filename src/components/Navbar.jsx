@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
-import { BookingLink } from './BookingLink'
+import { BookingLink, WhatsAppLink } from './BookingLink'
 import { BOOKING_PHONE_DISPLAY } from '../config/booking'
 import { BRAND } from '../data/orthocareCatalog'
 
@@ -38,9 +38,14 @@ export function Navbar() {
             Contact
           </NavLink>
         </div>
-        <BookingLink className="shrink-0 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-transform hover:bg-primary-container active:scale-95 sm:px-5">
-          Call to Book
-        </BookingLink>
+        <div className="flex shrink-0 items-center gap-2">
+          <BookingLink className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-transform hover:bg-primary-container active:scale-95 sm:px-5">
+            Call to Book
+          </BookingLink>
+          <WhatsAppLink className="hidden rounded-lg bg-green-600 px-4 py-2 text-sm font-semibold text-white transition-transform hover:bg-green-700 active:scale-95 sm:inline-block">
+            WhatsApp
+          </WhatsAppLink>
+        </div>
       </div>
       <div className="flex items-center justify-center gap-4 overflow-x-auto border-t border-slate-100 px-4 py-2 font-sans text-xs font-medium lg:hidden">
         <NavLink to="/home-care" className={navClass}>
@@ -61,6 +66,10 @@ export function Navbar() {
         <BookingLink className="font-semibold text-primary hover:underline">
           {BOOKING_PHONE_DISPLAY}
         </BookingLink>
+        <span className="px-2">|</span>
+        <WhatsAppLink className="font-semibold text-green-600 hover:underline">
+          WhatsApp
+        </WhatsAppLink>
       </div>
     </nav>
   )

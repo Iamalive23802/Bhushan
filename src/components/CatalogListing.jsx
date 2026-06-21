@@ -1,25 +1,51 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BookingLink } from './BookingLink'
+import { BookingLink, WhatsAppLink } from './BookingLink'
 import { formatPrice } from '../data/catalog'
 import { availabilityBadge } from '../data/products'
 
+const filters = [
+  { label: 'All', value: 'all' },
+  { label: 'Available now', value: 'available' },
+  { label: 'Call for price', value: 'on-request' },
+]
+
 export function CatalogListing({ title, subtitle, items, listingLabel }) {
   const [query, setQuery] = useState('')
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [sortBy, setSortBy] = useState('featured')
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    if (!q) return items
-    return items.filter(
-      (p) =>
+    const visible = items.filter((p) => {
+      const matchesQuery =
+        !q ||
         p.name.toLowerCase().includes(q) ||
-        p.shortDescription.toLowerCase().includes(q),
-    )
-  }, [items, query])
+        p.shortDescription.toLowerCase().includes(q) ||
+        p.features?.some((feature) => feature.toLowerCase().includes(q))
+
+      const matchesFilter =
+        activeFilter === 'all' ||
+        p.availability === activeFilter ||
+        p.priceMode === activeFilter
+
+      return matchesQuery && matchesFilter
+    })
+
+    return [...visible].sort((a, b) => {
+      if (sortBy === 'name') return a.name.localeCompare(b.name)
+      if (sortBy === 'price-low') {
+        const aAmount = typeof a.amount === 'number' ? a.amount : Number.MAX_SAFE_INTEGER
+        const bAmount = typeof b.amount === 'number' ? b.amount : Number.MAX_SAFE_INTEGER
+        return aAmount - bAmount
+      }
+      return 0
+    })
+  }, [activeFilter, items, query, sortBy])
 
   return (
     <main className="mx-auto max-w-[1280px] flex-grow px-6 py-10">
-      <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
           {listingLabel ? (
             <span className="mb-2 inline-block rounded-full bg-secondary-container px-3 py-1 text-xs font-semibold uppercase tracking-wider text-on-secondary-container">
@@ -38,6 +64,37 @@ export function CatalogListing({ title, subtitle, items, listingLabel }) {
             className="w-48 border-none bg-transparent text-sm focus:ring-0 md:w-56"
           />
         </div>
+      </div>
+
+      <div className="mb-6 flex flex-col gap-4 rounded-2xl border border-outline-variant bg-white p-4 shadow-level-1 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-wrap gap-2">
+          {filters.map((filter) => (
+            <button
+              key={filter.value}
+              type="button"
+              onClick={() => setActiveFilter(filter.value)}
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+                activeFilter === filter.value
+                  ? 'bg-primary text-white'
+                  : 'bg-slate-50 text-slate-600 hover:bg-primary-fixed'
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+        <label className="flex items-center gap-2 text-sm font-medium text-slate-500">
+          Sort
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="rounded-lg border border-outline-variant bg-white px-3 py-2 text-sm text-slate-700 outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+          >
+            <option value="featured">Featured</option>
+            <option value="name">Name A-Z</option>
+            <option value="price-low">Lowest price</option>
+          </select>
+        </label>
       </div>
 
       <p className="mb-6 text-sm text-slate-500">
@@ -106,17 +163,35 @@ export function CatalogListing({ title, subtitle, items, listingLabel }) {
                       View details
                     </Link>
                     {canBook ? (
-                      <BookingLink
-                        productName={p.name}
-                        aria-label={`Call to book ${p.name}`}
-                        className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-50 text-sky-600 hover:bg-sky-100"
-                      >
-                        <span className="material-symbols-outlined text-[20px]">call</span>
-                      </BookingLink>
+                      <>
+                        <BookingLink
+                          productName={p.name}
+                          aria-label={`Call to book ${p.name}`}
+                          className="flex h-9 w-9 items-center justify-center rounded-lg bg-sky-50 text-sky-600 hover:bg-sky-100"
+                        >
+                          <span className="material-symbols-outlined text-[20px]">call</span>
+                        </BookingLink>
+                        <WhatsAppLink
+                          productName={p.name}
+                          aria-label={`WhatsApp inquiry for ${p.name}`}
+                          className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600 hover:bg-green-100"
+                        >
+                          <span className="material-symbols-outlined text-[20px]">chat</span>
+                        </WhatsAppLink>
+                      </>
                     ) : (
-                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-200 text-slate-400">
-                        <span className="material-symbols-outlined text-[20px]">call</span>
-                      </span>
+                      <>
+                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-200 text-slate-400">
+                          <span className="material-symbols-outlined text-[20px]">call</span>
+                        </span>
+                        <WhatsAppLink
+                          productName={p.name}
+                          aria-label={`WhatsApp inquiry for ${p.name}`}
+                          className="flex h-9 w-9 items-center justify-center rounded-lg bg-green-50 text-green-600 hover:bg-green-100"
+                        >
+                          <span className="material-symbols-outlined text-[20px]">chat</span>
+                        </WhatsAppLink>
+                      </>
                     )}
                   </div>
                 </div>

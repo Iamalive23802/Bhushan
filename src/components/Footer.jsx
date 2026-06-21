@@ -1,5 +1,11 @@
 import { Link } from 'react-router-dom'
-import { BookingLink } from './BookingLink'
+import { BookingLink, WhatsAppLink } from './BookingLink'
+import {
+  BOOKING_PHONE_DISPLAY,
+  CONTACT_PERSON,
+  STORE_ADDRESS,
+  STORE_LOCATION_URL,
+} from '../config/booking'
 import { BRAND } from '../data/orthocareCatalog'
 
 export function Footer() {
@@ -51,9 +57,38 @@ export function Footer() {
         </div>
         <div>
           <h4 className="mb-4 font-semibold text-slate-900 dark:text-slate-100">Contact</h4>
-          <BookingLink className="font-bold text-primary hover:underline">
-            Call to book now
-          </BookingLink>
+          <div className="space-y-3 font-sans text-sm text-slate-500 dark:text-slate-400">
+            <div>
+              <p className="font-semibold text-slate-800 dark:text-slate-200">
+                {CONTACT_PERSON}
+              </p>
+              <BookingLink className="font-bold text-primary hover:underline">
+                {BOOKING_PHONE_DISPLAY}
+              </BookingLink>
+            </div>
+            <BookingLink className="block font-bold text-primary hover:underline">
+              Call to book now
+            </BookingLink>
+            <WhatsAppLink className="block font-bold text-green-600 hover:underline">
+              WhatsApp Inquiry
+            </WhatsAppLink>
+            <address className="not-italic leading-relaxed">
+              {STORE_ADDRESS.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </address>
+            <a
+              href={STORE_LOCATION_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-bold text-primary hover:underline"
+            >
+              <span className="material-symbols-outlined text-base">directions</span>
+              Get directions
+            </a>
+          </div>
         </div>
       </div>
       <div className="mx-auto mt-12 max-w-[1280px] border-t border-slate-200 px-6 pt-8 text-center dark:border-slate-800">

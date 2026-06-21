@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { BookingLink } from '../components/BookingLink'
+import { BookingLink, WhatsAppLink } from '../components/BookingLink'
 import { BOOKING_PHONE_DISPLAY } from '../config/booking'
 import {
   formatPrice,
@@ -194,20 +194,37 @@ export function ProductDetail() {
               .
             </p>
             {canCall ? (
-              <BookingLink
-                productName={product.name}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-lg font-semibold text-white transition-transform active:scale-[0.98] hover:bg-primary-container"
-              >
-                <span className="material-symbols-outlined">call</span>
-                Call to book now
-              </BookingLink>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <BookingLink
+                  productName={product.name}
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 text-lg font-semibold text-white transition-transform active:scale-[0.98] hover:bg-primary-container"
+                >
+                  <span className="material-symbols-outlined">call</span>
+                  Call to book now
+                </BookingLink>
+                <WhatsAppLink
+                  productName={product.name}
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 py-4 text-lg font-semibold text-white transition-transform active:scale-[0.98] hover:bg-green-700"
+                >
+                  <span className="material-symbols-outlined">chat</span>
+                  WhatsApp Inquiry
+                </WhatsAppLink>
+              </div>
             ) : (
-              <BookingLink className="flex w-full items-center justify-center gap-2 rounded-lg bg-slate-600 py-4 text-lg font-semibold text-white hover:bg-slate-700">
-                Enquire by phone
-              </BookingLink>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <BookingLink className="flex w-full items-center justify-center gap-2 rounded-lg bg-slate-600 py-4 text-lg font-semibold text-white hover:bg-slate-700">
+                  Enquire by phone
+                </BookingLink>
+                <WhatsAppLink
+                  productName={product.name}
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 py-4 text-lg font-semibold text-white hover:bg-green-700"
+                >
+                  WhatsApp Inquiry
+                </WhatsAppLink>
+              </div>
             )}
             <p className="text-center text-[11px] text-on-secondary-container/70">
-              Your phone will open with our number ready to dial.
+              Call or WhatsApp opens with our number ready to contact.
             </p>
           </div>
         </div>

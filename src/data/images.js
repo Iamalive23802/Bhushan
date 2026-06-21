@@ -71,7 +71,7 @@ export function imageForSlug(slug) {
 
 /** @deprecated Use imageForSlug(slug) — kept for home hero */
 export const IMAGES = {
-  homeCare: pexels(5215024),
+  homeCare: local('home-hero-doctor.png'),
   nursing: PRODUCT_IMAGES['nursing-staff'],
   hospitalBed: PRODUCT_IMAGES['icu-setup-at-home'],
   wheelchair: PRODUCT_IMAGES['wheelchair-sale'],

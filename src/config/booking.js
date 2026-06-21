@@ -1,11 +1,20 @@
-/**
- * Booking phone shown across the site. Update `digits` for a real `tel:` link;
- * alphanumeric vanity numbers map to numeric dialing (example: 1-800-MED-PRO-1 → +18006337761).
- */
-export const BOOKING_PHONE_DISPLAY = '1-800-MED-PRO-1'
+/** Booking phone shown across the site. */
+export const BOOKING_PHONE_DISPLAY = '9323166423'
 
 /** E.164-style digits after + for use in tel: (no spaces or punctuation). */
-export const BOOKING_PHONE_DIGITS = '18006337761'
+export const BOOKING_PHONE_DIGITS = '919323166423'
+
+export const CONTACT_PERSON = 'Bhushan Kothawade'
+
+export const STORE_ADDRESS = [
+  'Shop no 5, Raj Kamal Tower CHS.',
+  'Santoshimata Road',
+  'Near Kotak Mahindra Bank',
+  'Kalyan West',
+  'Pin code - 421301',
+]
+
+export const STORE_LOCATION_URL = 'https://g.co/kgs/5LGfoS'
 
 /** `tel:` href used by all “Book / Call” actions. */
 export function bookingTelHref() {
@@ -17,4 +26,15 @@ export function bookingTelHref() {
  */
 export function bookingTelHrefForProduct(/* productName */) {
   return bookingTelHref()
+}
+
+export function bookingWhatsappHref(message = 'Hi, I want to inquire about Royal Orthocare Center services.') {
+  return `https://wa.me/${BOOKING_PHONE_DIGITS}?text=${encodeURIComponent(message)}`
+}
+
+export function bookingWhatsappHrefForProduct(productName) {
+  const message = productName
+    ? `Hi, I want to inquire about ${productName}.`
+    : 'Hi, I want to inquire about Royal Orthocare Center services.'
+  return bookingWhatsappHref(message)
 }

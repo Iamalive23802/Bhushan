@@ -1,4 +1,10 @@
-import { BookingLink } from '../components/BookingLink'
+import { BookingLink, WhatsAppLink } from '../components/BookingLink'
+import {
+  BOOKING_PHONE_DISPLAY,
+  CONTACT_PERSON,
+  STORE_ADDRESS,
+  STORE_LOCATION_URL,
+} from '../config/booking'
 
 const steps = [
   {
@@ -21,6 +27,29 @@ const steps = [
     title: '3. Delivery or Pickup',
     body: 'Choose rapid home delivery or secure pickup at our sterilization center.',
     img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAdxX0LBCvaA6P3cwxLAZTcrH_WwtEZ9YtiIE5vsNSGV53A6TPh-Q-pf_baZd0y2wIJi8yErVy9dPQpOioZhmvE1_z_iLoqNCcsftNzOaipFkthrV2VJSYp9O0iDA39W824w54KHGpsRI48cYXPV8YEnu5Gju10lIkrOI8Qc89yuaqHm3jd_xf2tzXyMHW0XwV3PkGFP3xvLK40ccOcLVmyQ6TYDOtXwlvgs40Z6s3ALajTaJic87yzikBcJFKryi2hvK267olyGsk-',
+  },
+]
+
+const faqs = [
+  {
+    q: 'Do you provide medical equipment on rent in Kalyan?',
+    a: 'Yes. We provide oxygen machines, BiPAP, CPAP, wheelchairs, hospital beds, monitors, pumps, and other medical equipment on rent based on availability.',
+  },
+  {
+    q: 'Can I book on WhatsApp?',
+    a: 'Yes. Tap any WhatsApp Inquiry button, share the patient requirement, location, and dates, and our team will guide you with availability and next steps.',
+  },
+  {
+    q: 'Do you deliver equipment at home?',
+    a: 'Home delivery and setup support can be arranged in Kalyan and nearby areas. Call before booking to confirm timing and delivery charges.',
+  },
+  {
+    q: 'Is there a deposit for rental products?',
+    a: 'Some rental products may require a refundable deposit depending on the item and rental duration. Final details are confirmed on call or WhatsApp.',
+  },
+  {
+    q: 'Can I visit the shop directly?',
+    a: 'Yes. The shop is at Raj Kamal Tower CHS, Santoshimata Road, near Kotak Mahindra Bank, Kalyan West. It is better to call before visiting for product availability.',
   },
 ]
 
@@ -61,20 +90,7 @@ export function HowItWorks() {
         <div className="mx-auto max-w-3xl">
           <h2 className="mb-6 text-center text-2xl font-semibold">Frequently Asked Questions</h2>
           <div className="space-y-4">
-            {[
-              {
-                q: 'How are the items sterilized?',
-                a: 'Equipment follows a rigorous multi-stage process aligned with ISO 13485 before sealed transport.',
-              },
-              {
-                q: 'What is the typical lead time?',
-                a: 'Many standard items can go out same-day if confirmed before 11:00 AM. Specialty kits may require 24 hours.',
-              },
-              {
-                q: 'Do you offer emergency replacements?',
-                a: 'Our Pro-Priority lanes support rapid replacements for urgent clinical scenarios.',
-              },
-            ].map(({ q, a }) => (
+            {faqs.map(({ q, a }) => (
               <details
                 key={q}
                 className="group rounded-lg border border-outline-variant bg-surface-container-lowest p-4"
@@ -102,21 +118,42 @@ export function HowItWorks() {
             </p>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <span className="material-symbols-outlined text-primary">mail</span>
-                <span>support@medequippro.com</span>
+                <span className="material-symbols-outlined text-primary">person</span>
+                <span>{CONTACT_PERSON}</span>
               </div>
               <div className="flex items-center gap-4">
                 <span className="material-symbols-outlined text-primary">phone</span>
                 <BookingLink className="font-medium hover:underline">
-                  Prefer to book by phone — tap to call
+                  {BOOKING_PHONE_DISPLAY} - tap to call
                 </BookingLink>
               </div>
               <div className="flex items-center gap-4">
+                <span className="material-symbols-outlined text-primary">chat</span>
+                <WhatsAppLink className="font-medium text-green-700 hover:underline">
+                  WhatsApp inquiry
+                </WhatsAppLink>
+              </div>
+              <div className="flex items-start gap-4">
                 <span className="material-symbols-outlined text-primary">
                   location_on
                 </span>
-                <span>Medical District, Suite 400</span>
+                <address className="not-italic">
+                  {STORE_ADDRESS.map((line) => (
+                    <span key={line} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </address>
               </div>
+              <a
+                href={STORE_LOCATION_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 font-semibold text-primary hover:underline"
+              >
+                <span className="material-symbols-outlined text-lg">directions</span>
+                Open shop location on Google Maps
+              </a>
             </div>
           </div>
           <form
